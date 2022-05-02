@@ -1,4 +1,5 @@
-﻿using SistemaDeInventarioOD.Datos;
+﻿using PipschasersADM.Modelo;
+using SistemaDeInventarioOD.Datos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,30 @@ namespace PipschasersADM.Controlador
                 {
                     return false;
                 }
+            }
+        }
+
+        public bool AgregarContratoCuentaBancaria(Contrato contrato, DatosBancarios datosBancarios)
+        {
+            DBDatos dBDatos = new DBDatos();
+
+            int resultado = dBDatos.AgregarContratoCuentaBancaria(contrato);
+            int resultado2 = dBDatos.AgregaraDatosBancarios(datosBancarios);
+
+            if(resultado > 0)
+            {
+                if(resultado2 > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
 

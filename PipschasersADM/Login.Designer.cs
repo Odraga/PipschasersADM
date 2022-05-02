@@ -130,6 +130,7 @@ namespace PipschasersADM
             this.txtContrasenia.ForeColor = System.Drawing.SystemColors.Window;
             this.txtContrasenia.Location = new System.Drawing.Point(3, 88);
             this.txtContrasenia.Name = "txtContrasenia";
+            this.txtContrasenia.PasswordChar = '*';
             this.txtContrasenia.Size = new System.Drawing.Size(260, 33);
             this.txtContrasenia.TabIndex = 17;
             this.txtContrasenia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;

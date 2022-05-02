@@ -13,7 +13,7 @@ namespace PipschasersADM.Modelo
         public string Institucion_Bancaria { get; set; }
         public string Nro_Cuenta_Bancaria { get; set; }
         public string Nombre_Titular { get; set; }
-        public string Cedular_Titular { get; set; }
+        public string Cedula_Titular { get; set; }
         public string Naturaleza_Cuenta { get; set; }
     }
 }

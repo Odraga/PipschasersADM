@@ -89,7 +89,6 @@ namespace PipschasersADM
             this.panel7 = new System.Windows.Forms.Panel();
             this.lblIdentificacionTitular = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rbPasaporteTitular = new System.Windows.Forms.RadioButton();
             this.rbCedulaTitular = new System.Windows.Forms.RadioButton();
             this.label10 = new System.Windows.Forms.Label();
             this.txtIdentificacionTitular = new System.Windows.Forms.TextBox();
@@ -115,6 +114,23 @@ namespace PipschasersADM
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnAgregarCliente = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Column21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabConRegistro.SuspendLayout();
             this.tabPageRegistro.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -152,6 +168,7 @@ namespace PipschasersADM
             this.tabConRegistro.SelectedIndex = 0;
             this.tabConRegistro.Size = new System.Drawing.Size(1011, 591);
             this.tabConRegistro.TabIndex = 0;
+            this.tabConRegistro.SelectedIndexChanged += new System.EventHandler(this.tabConRegistro_SelectedIndexChanged);
             // 
             // tabPageRegistro
             // 
@@ -460,6 +477,11 @@ namespace PipschasersADM
             // nudMontoContratado
             // 
             this.nudMontoContratado.Location = new System.Drawing.Point(7, 116);
+            this.nudMontoContratado.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.nudMontoContratado.Name = "nudMontoContratado";
             this.nudMontoContratado.Size = new System.Drawing.Size(172, 20);
             this.nudMontoContratado.TabIndex = 15;
@@ -478,6 +500,11 @@ namespace PipschasersADM
             // nudPorcentajeContratado
             // 
             this.nudPorcentajeContratado.Location = new System.Drawing.Point(7, 160);
+            this.nudPorcentajeContratado.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.nudPorcentajeContratado.Name = "nudPorcentajeContratado";
             this.nudPorcentajeContratado.Size = new System.Drawing.Size(172, 20);
             this.nudPorcentajeContratado.TabIndex = 17;
@@ -575,6 +602,11 @@ namespace PipschasersADM
             // nudDepositoMensual
             // 
             this.nudDepositoMensual.Location = new System.Drawing.Point(9, 148);
+            this.nudDepositoMensual.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.nudDepositoMensual.Name = "nudDepositoMensual";
             this.nudDepositoMensual.Size = new System.Drawing.Size(182, 20);
             this.nudDepositoMensual.TabIndex = 18;
@@ -770,7 +802,6 @@ namespace PipschasersADM
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.rbPasaporteTitular);
             this.groupBox2.Controls.Add(this.rbCedulaTitular);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.txtIdentificacionTitular);
@@ -782,21 +813,11 @@ namespace PipschasersADM
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tipo Identificacion";
             // 
-            // rbPasaporteTitular
-            // 
-            this.rbPasaporteTitular.AutoSize = true;
-            this.rbPasaporteTitular.Location = new System.Drawing.Point(103, 29);
-            this.rbPasaporteTitular.Name = "rbPasaporteTitular";
-            this.rbPasaporteTitular.Size = new System.Drawing.Size(80, 19);
-            this.rbPasaporteTitular.TabIndex = 1;
-            this.rbPasaporteTitular.Text = "Pasaporte";
-            this.rbPasaporteTitular.UseVisualStyleBackColor = true;
-            // 
             // rbCedulaTitular
             // 
             this.rbCedulaTitular.AutoSize = true;
             this.rbCedulaTitular.Checked = true;
-            this.rbCedulaTitular.Location = new System.Drawing.Point(7, 29);
+            this.rbCedulaTitular.Location = new System.Drawing.Point(59, 29);
             this.rbCedulaTitular.Name = "rbCedulaTitular";
             this.rbCedulaTitular.Size = new System.Drawing.Size(62, 19);
             this.rbCedulaTitular.TabIndex = 0;
@@ -896,6 +917,7 @@ namespace PipschasersADM
             this.rbOtro.TabIndex = 2;
             this.rbOtro.Text = "Otro";
             this.rbOtro.UseVisualStyleBackColor = true;
+            this.rbOtro.CheckedChanged += new System.EventHandler(this.rbOtro_CheckedChanged);
             // 
             // txtOtraNaturaleza
             // 
@@ -1011,6 +1033,24 @@ namespace PipschasersADM
             this.dgvContratos.AllowUserToAddRows = false;
             this.dgvContratos.AllowUserToDeleteRows = false;
             this.dgvContratos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvContratos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column21,
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5,
+            this.Column6,
+            this.Column7,
+            this.Column8,
+            this.Column9,
+            this.Column10,
+            this.Column11,
+            this.Column12,
+            this.Column13,
+            this.Column14,
+            this.Column15,
+            this.Column16});
             this.dgvContratos.Location = new System.Drawing.Point(11, 7);
             this.dgvContratos.Name = "dgvContratos";
             this.dgvContratos.ReadOnly = true;
@@ -1061,6 +1101,108 @@ namespace PipschasersADM
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // Column21
+            // 
+            this.Column21.HeaderText = "ID Contrato";
+            this.Column21.Name = "Column21";
+            this.Column21.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Nombre Completo";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Tipo Identificacion";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Nro. Identificacion";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Nombre Persona Implicada";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Cedula Persona Implicada";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Referido Por";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Fecha Contratacion";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Monto Contrato";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Porcentaje Contrato";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Retencion de Impuesto";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "Fecha Pago";
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "Deposito Mensual";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            // 
+            // Column13
+            // 
+            this.Column13.HeaderText = "Procedencia Capital";
+            this.Column13.Name = "Column13";
+            this.Column13.ReadOnly = true;
+            // 
+            // Column14
+            // 
+            this.Column14.HeaderText = "Correo Electronico";
+            this.Column14.Name = "Column14";
+            this.Column14.ReadOnly = true;
+            // 
+            // Column15
+            // 
+            this.Column15.HeaderText = "Nro. Telefono Cliente";
+            this.Column15.Name = "Column15";
+            this.Column15.ReadOnly = true;
+            // 
+            // Column16
+            // 
+            this.Column16.HeaderText = "Telefono con Whatsapp";
+            this.Column16.Name = "Column16";
+            this.Column16.ReadOnly = true;
             // 
             // FormRegistroGeneralClientes
             // 
@@ -1187,7 +1329,6 @@ namespace PipschasersADM
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label lblIdentificacionTitular;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton rbPasaporteTitular;
         private System.Windows.Forms.RadioButton rbCedulaTitular;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtIdentificacionTitular;
@@ -1212,6 +1353,23 @@ namespace PipschasersADM
         private System.Windows.Forms.Button btnAgregarCliente;
         private System.Windows.Forms.DataGridView dgvContratos;
         private System.Windows.Forms.Button btnSalir;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column21;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
     }
 }
 
