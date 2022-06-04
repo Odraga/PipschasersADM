@@ -10,7 +10,7 @@ namespace PipschasersADM.Modelo
     {
         public int Id_Contrato { get; set; }
         public string Nombre_Completo { get; set; }
-        public int Tipo_Identificacion { get; set; }
+        public string Tipo_Identificacion { get; set; }
         public string Nro_Identificacion { get; set; }
         public string Nombre_Persona_Implicada { get; set; }
         public string Cedula_Persona_Implicada { get; set; }

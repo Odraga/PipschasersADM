@@ -2,6 +2,8 @@
 using PipschasersADM.Modelo;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,36 +12,34 @@ namespace SistemaDeInventarioOD.Datos
 {
     class DBDatos
     {
-        private const string conexion = "datasource = 127.0.0.1; port = 3306; username = root; password = root; database = pipschasersadm; Allow User Variables=True;";
+        private static string conexion = ConfigurationManager.ConnectionStrings["stringConnection"].ConnectionString;
 
         public bool BuscarUsuario(string nombreUsuario, string clave)
         {
             try
             {
-                MySqlDataReader reader;
+                bool estado = false;
 
-                MySqlConnection conn = new MySqlConnection(conexion);
+                SQLiteConnection conn = new SQLiteConnection(conexion);
 
                 conn.Open();
 
-                string query = "SELECT * FROM usuario WHERE nombre_usuario = @nombreUsuario AND clave = @clave";
+                string query = "SELECT * FROM usuarios WHERE NOMBRE_USUARIO = @nombreusuario AND CLAVE = @clave LIMIT 1;";
 
-                MySqlCommand comando = new MySqlCommand(query, conn);
+                SQLiteCommand comando = new SQLiteCommand(query, conn);
                 comando.Parameters.AddWithValue("@nombreusuario", nombreUsuario);
                 comando.Parameters.AddWithValue("@clave", clave);
 
-                reader = comando.ExecuteReader();
+                SQLiteDataReader reader = comando.ExecuteReader();
 
                 if (reader.Read())
                 {
-                    conn.Close();
-                    return true;
+                    estado = true;
                 }
-                else
-                {
-                    conn.Close();
-                    return false;
-                }
+
+                conn.Close();
+
+                return estado;
             }
             catch (Exception)
             {
@@ -48,19 +48,19 @@ namespace SistemaDeInventarioOD.Datos
 
         }
 
-        public List<Contrato> TraerContratos()
+        /*public List<Contrato> TraerContratos()
         {
             try
             {
-                MySqlDataReader reader;
+                SQLiteDataReader reader;
 
-                MySqlConnection conn = new MySqlConnection(conexion);
+                SQLiteConnection conn = new SQLiteConnection(conexion);
 
                 conn.Open();
 
                 string query = "SELECT * FROM contratos";
 
-                MySqlCommand comando = new MySqlCommand(query, conn);
+                SQLiteCommand comando = new SQLiteCommand(query, conn);
 
                 reader = comando.ExecuteReader();
 
@@ -70,23 +70,23 @@ namespace SistemaDeInventarioOD.Datos
                 {
                     contratos.Add(new Contrato
                     {
-                        Id_Contrato = reader.GetInt32(0),
-                        Nombre_Completo = reader.GetString(1),
-                        Tipo_Identificacion = reader.GetInt32(2),
-                        Nro_Identificacion = reader.GetString(3),
-                        Nombre_Persona_Implicada = reader.GetString(4),
-                        Cedula_Persona_Implicada = reader.GetString(5),
-                        Referido_Por = reader.GetString(6),
-                        Fecha_Contratacion = reader.GetString(7),
-                        Monto_Contrato = reader.GetFloat(8),
-                        Porcentaje_Contrato = reader.GetFloat(9),
-                        Retencion_Impuesto = reader.GetInt32(10),
-                        Dia_Pago = reader.GetInt32(11),
-                        Deposito_Mensual = reader.GetFloat(12),
-                        Procedencia_Capital = reader.GetString(13),
-                        Correo_Electronico = reader.GetString(14),
-                        Nro_Telefono_Cliente = reader.GetString(15),
-                        Telefono_Whatsapp = reader.GetInt32(16),
+                        Id_Contrato = reader.GetInt32("id_contrato"),
+                        Nombre_Completo = reader.GetString("nombre_completo"),
+                        Tipo_Identificacion = reader.GetInt32("tipo_identificacion"),
+                        Nro_Identificacion = reader.GetString("nro_identificacion"),
+                        Nombre_Persona_Implicada = reader.GetString("nombre_persona_implicada"),
+                        Cedula_Persona_Implicada = reader.GetString("cedula_persona_implicada"),
+                        Referido_Por = reader.GetString("referido_por"),
+                        Fecha_Contratacion = reader.GetString("fecha_contratacion"),
+                        Monto_Contrato = reader.GetFloat("monto_contrato"),
+                        Porcentaje_Contrato = reader.GetFloat("porcentaje_contrato"),
+                        Retencion_Impuesto = reader.GetInt32("retencion_impuesto"),
+                        Dia_Pago = reader.GetInt32("dia_pago"),
+                        Deposito_Mensual = reader.GetFloat("deposito_mensual"),
+                        Procedencia_Capital = reader.GetString("procedencia_capital"),
+                        Correo_Electronico = reader.GetString("correo_electronico"),
+                        Nro_Telefono_Cliente = reader.GetString("nro_telefono_cliente"),
+                        Telefono_Whatsapp = reader.GetInt32("telefono_whatsapp"),
 
                     });
                 }
@@ -97,24 +97,24 @@ namespace SistemaDeInventarioOD.Datos
             {
                 return null;
             }
-        }
+        }*/
         public int AgregarContratoCuentaBancaria(Contrato contrato)
         {
             try
             {
-                MySqlConnection conn = new MySqlConnection(conexion);
+                SQLiteConnection conn = new SQLiteConnection(conexion);
 
                 conn.Open();
 
                 string query = "INSERT INTO contratos(NOMBRE_COMPLETO,TIPO_IDENTIFICACION,NRO_IDENTIFICACION,NOMBRE_PERSONA_IMPLICADA," +
-                    "CEDULA_PERSONA_IMPLICADA,REFERIDO_POR,FECHA_CONTRATACION,MONTO_CONTRATADO,PORCENTAJE_CONTRATO,RETENCION_IMPUESTO," +
+                    "CEDULA_PERSONA_IMPLICADA,REFERIDO_POR,FECHA_CONTRATACION,MONTO_CONTRATO,PORCENTAJE_CONTRATO,RETENCION_IMPUESTO," +
                     "DIA_PAGO,DEPOSITO_MENSUAL,PROCEDENCIA_CAPITAL,CORREO_ELECTRONICO,NRO_TELEFONO_CLIENTE,TELEFONO_WHATSAPP)VALUES" +
 
                     "(@nombre_completo, @tipo_identificacion, @nro_identificacion, @nombre_persona_implicada," +
                     "@cedula_persona_implicada, @referido_por, @fecha_contratacion, @monto_contratado, @porcentaje_contrato, @retencion_impuesto," +
                     "@dia_pago, @deposito_mensual, @procedencia_capital, @correo_electronico, @nro_telefono_cliente,@telefono_whatsapp);";
 
-                MySqlCommand comando = new MySqlCommand(query, conn);
+                SQLiteCommand comando = new SQLiteCommand(query, conn);
 
                 comando.Parameters.AddWithValue("@nombre_completo", contrato.Nombre_Completo);
                 comando.Parameters.AddWithValue("@tipo_identificacion", contrato.Tipo_Identificacion);
@@ -138,7 +138,7 @@ namespace SistemaDeInventarioOD.Datos
                 conn.Close();
 
                 return resultado;
-            }catch(Exception ex)
+            }catch(Exception)
             {
                 return 0;
             }
@@ -148,15 +148,14 @@ namespace SistemaDeInventarioOD.Datos
         {
             try
             {
-                MySqlConnection conn = new MySqlConnection(conexion);
+                SQLiteConnection conn = new SQLiteConnection(conexion);
 
-                string query = "INSERT INTO datos_bancarios (id_contrato, institucion_bancaria, nro_cuenta_bancaria, nombre_titular, cedula_titular, naturaleza_cuenta) VALUES" +
-                    //"((SELECT id_contratos FROM contratos ORDER BY id_contratos DESC LIMIT 1), \"Banreservas\", \"18491827491827\", \"Gabriel Vargas\", \"28058200\", \"Ahorro\");";
-                    "((SELECT id_contratos FROM contratos ORDER BY id_contratos DESC LIMIT 1), @institucionBancaria, @nroCuentaBancaria, @nombreTitular, @cedulaTitular, @naturalezaTitular);";
+                string query = "INSERT INTO dt_bk (id_contrato, institucion_bk, cuenta_bk, nombre_titular, cedula_titular, naturaleza_cuenta) VALUES" +
+                    "((SELECT id_contrato FROM contratos ORDER BY id_contrato DESC LIMIT 1), @institucionBancaria, @nroCuentaBancaria, @nombreTitular, @cedulaTitular, @naturalezaTitular);";
 
                 conn.Open();
 
-                MySqlCommand comando = new MySqlCommand(query, conn);
+                SQLiteCommand comando = new SQLiteCommand(query, conn);
 
                 comando.Parameters.AddWithValue("@institucionBancaria", datosBancarios.Institucion_Bancaria);
                 comando.Parameters.AddWithValue("@nroCuentaBancaria", datosBancarios.Nro_Cuenta_Bancaria);
@@ -170,7 +169,7 @@ namespace SistemaDeInventarioOD.Datos
 
                 return resultado;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 0;
             }

@@ -30,7 +30,7 @@ namespace PipschasersADM
 
             contratos.Clear();
 
-            contratos = dBDatos.TraerContratos();
+            //contratos = dBDatos.TraerContratos();
 
             dgvContratos.Rows.Clear();
 
@@ -38,7 +38,7 @@ namespace PipschasersADM
             {
                 dgvContratos.Rows.Add(item.Id_Contrato,
                     item.Nombre_Completo,
-                    item.Tipo_Identificacion == 0 ? "Cedula" : "Pasaporte",
+                    item.Tipo_Identificacion,
                     item.Nro_Identificacion,
                     item.Nombre_Persona_Implicada,
                     item.Cedula_Persona_Implicada,
@@ -46,13 +46,13 @@ namespace PipschasersADM
                     item.Fecha_Contratacion,
                     item.Monto_Contrato,
                     item.Porcentaje_Contrato,
-                    item.Retencion_Impuesto == 0 ? "Si" : "No",
-                    item.Dia_Pago == 0 ? "Dias: 15":"Dias: 30",
+                    item.Retencion_Impuesto == 0 ? "NO" : "SI",
+                    "Dias: " + item.Dia_Pago,
                     item.Deposito_Mensual,
                     item.Procedencia_Capital,
                     item.Correo_Electronico,
                     item.Nro_Telefono_Cliente,
-                    item.Telefono_Whatsapp == 0 ? "Si" : "No"); 
+                    item.Telefono_Whatsapp == 1 ? "Si" : "No"); 
             }
         }
 
@@ -88,7 +88,7 @@ namespace PipschasersADM
                 {
 
                     contrato.Nombre_Completo = txtNombreCompleto.Text;
-                    contrato.Tipo_Identificacion = rbCedula.Checked ? 0 : 1;
+                    contrato.Tipo_Identificacion = rbCedula.Checked ? "Cedula" : "Pasaporte";
                     contrato.Nro_Identificacion = txtNroIdentificacionCliente.Text;
                     contrato.Nombre_Persona_Implicada = txtNombreCompletoSegunda.Text;
                     contrato.Cedula_Persona_Implicada = txtIdentificacionSegunda.Text;
@@ -99,13 +99,13 @@ namespace PipschasersADM
                     contrato.Fecha_Contratacion = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
                     contrato.Monto_Contrato = (float)nudMontoContratado.Value;
                     contrato.Porcentaje_Contrato = (float)nudPorcentajeContratado.Value;
-                    contrato.Retencion_Impuesto = rbRetenImpuestosSi.Checked ? 0 : 1;
-                    contrato.Dia_Pago = rbDiasQuince.Checked ? 0 : 1;
+                    contrato.Retencion_Impuesto = rbRetenImpuestosSi.Checked ? 1 : 0;
+                    contrato.Dia_Pago = rbDiasQuince.Checked ? 15 : 30;
                     contrato.Deposito_Mensual = (float)nudDepositoMensual.Value;
                     contrato.Procedencia_Capital = txtProcedenciaCapital.Text;
                     contrato.Correo_Electronico = txtCorreoElectronico.Text;
                     contrato.Nro_Telefono_Cliente = txtNroTelefono.Text;
-                    contrato.Telefono_Whatsapp = rbSiWhatsapp.Checked ? 0 : 1;
+                    contrato.Telefono_Whatsapp = rbSiWhatsapp.Checked ? 1 : 0;
 
 
                     string nombreBanco = string.Empty;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PipschasersADM.Controlador
 {
-    class Validar
+    class Validar : DBDatos
     {
         public bool Iniciar_Sesion(string usuario, string clave)
         {
@@ -18,9 +18,8 @@ namespace PipschasersADM.Controlador
             }
             else
             {
-                DBDatos dBDatos = new DBDatos();
 
-                bool existe = dBDatos.BuscarUsuario(usuario, clave);
+                bool existe = BuscarUsuario(usuario, clave);
 
                 if (existe)
                 {
@@ -35,10 +34,9 @@ namespace PipschasersADM.Controlador
 
         public bool AgregarContratoCuentaBancaria(Contrato contrato, DatosBancarios datosBancarios)
         {
-            DBDatos dBDatos = new DBDatos();
 
-            int resultado = dBDatos.AgregarContratoCuentaBancaria(contrato);
-            int resultado2 = dBDatos.AgregaraDatosBancarios(datosBancarios);
+            int resultado = AgregarContratoCuentaBancaria(contrato);
+            int resultado2 = AgregaraDatosBancarios(datosBancarios);
 
             if(resultado > 0)
             {
